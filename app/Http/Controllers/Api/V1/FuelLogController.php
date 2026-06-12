@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\FuelLog;
+use App\Services\SoapAuditService;
+use App\Services\RabbitMQPublisherService;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
@@ -15,9 +17,7 @@ class FuelLogController extends Controller
         summary: "Ambil semua fuel log",
         security: [["apiKey" => []]],
         tags: ["Fuel Logs"],
-        responses: [
-            new OA\Response(response: 200, description: "Success")
-        ]
+        responses: [new OA\Response(response: 200, description: "Success")]
     )]
     public function index()
     {
@@ -36,12 +36,7 @@ class FuelLogController extends Controller
         security: [["apiKey" => []]],
         tags: ["Fuel Logs"],
         parameters: [
-            new OA\Parameter(
-                name: "id",
-                in: "path",
-                required: true,
-                schema: new OA\Schema(type: "integer")
-            )
+            new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer"))
         ],
         responses: [
             new OA\Response(response: 200, description: "Success"),
@@ -76,7 +71,7 @@ class FuelLogController extends Controller
                 required: ["vehicle_id", "driver_name", "liters", "total_cost", "fuel_station", "filled_at"],
                 properties: [
                     new OA\Property(property: "vehicle_id", type: "integer", example: 1),
-                    new OA\Property(property: "driver_name", type: "string", example: "Budi Santoso"),
+                    new OA\Property(property: "driver_name", type: "string", example: "Adwitiya Tikta Pramasti"),
                     new OA\Property(property: "liters", type: "number", example: 40.5),
                     new OA\Property(property: "total_cost", type: "number", example: 350000),
                     new OA\Property(property: "fuel_station", type: "string", example: "SPBU Pertamina Bandung"),
@@ -101,6 +96,21 @@ class FuelLogController extends Controller
         ]);
 
         $log = FuelLog::create($request->all());
+
+        try {
+            $soapService = new SoapAuditService();
+            $receiptNumber = $soapService->sendAudit($log);
+            $log->update(['soap_receipt_number' => $receiptNumber]);
+        } catch (\Exception $e) {
+            // Tidak gagalkan request jika SOAP error
+        }
+
+        try {
+            $rabbitService = new RabbitMQPublisherService();
+            $rabbitService->publish($log);
+        } catch (\Exception $e) {
+            // Tidak gagalkan request jika RabbitMQ error
+        }
 
         return response()->json([
             'status' => 'success',

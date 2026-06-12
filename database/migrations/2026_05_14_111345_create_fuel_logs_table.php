@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('total_cost');
             $table->string('fuel_station');
             $table->timestamp('filled_at');
+            $table->string('soap_receipt_number')->nullable();
             $table->timestamps();
         });
     }
