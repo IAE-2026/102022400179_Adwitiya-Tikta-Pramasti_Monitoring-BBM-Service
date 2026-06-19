@@ -59,7 +59,8 @@ class SoapAuditService
         $response = Http::post(
             'https://iae-sso.virtualfri.id/api/v1/auth/token',
             [
-                'api_key' => env('IAE_API_KEY_M2M')
+                'api_key' => env('IAE_API_KEY_M2M'),
+                'nim'     => env('IAE_MHS_NIM', '102022400033')
             ]
         );
 
