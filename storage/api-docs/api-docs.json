@@ -15,7 +15,83 @@
                 "operationId": "9b002b4b7fdb6648bd617b71e3a883df",
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data retrieved successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "vehicle_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "driver_name": {
+                                                        "type": "string",
+                                                        "example": "Adwitiya Tikta Pramasti"
+                                                    },
+                                                    "liters": {
+                                                        "type": "number",
+                                                        "example": 40.5
+                                                    },
+                                                    "total_cost": {
+                                                        "type": "number",
+                                                        "example": 350000
+                                                    },
+                                                    "fuel_station": {
+                                                        "type": "string",
+                                                        "example": "SPBU Pertamina Bandung"
+                                                    },
+                                                    "filled_at": {
+                                                        "type": "string",
+                                                        "example": "2026-05-16 10:00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized. API Key atau Bearer Token tidak valid."
+                                        },
+                                        "errors": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -50,7 +126,7 @@
                                     },
                                     "driver_name": {
                                         "type": "string",
-                                        "example": "Budi Santoso"
+                                        "example": "Adwitiya Tikta Pramasti"
                                     },
                                     "liters": {
                                         "type": "number",
@@ -76,10 +152,99 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fuel log berhasil ditambahkan."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "vehicle_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "driver_name": {
+                                                    "type": "string",
+                                                    "example": "Adwitiya Tikta Pramasti"
+                                                },
+                                                "liters": {
+                                                    "type": "number",
+                                                    "example": 40.5
+                                                },
+                                                "total_cost": {
+                                                    "type": "number",
+                                                    "example": 350000
+                                                },
+                                                "fuel_station": {
+                                                    "type": "string",
+                                                    "example": "SPBU Pertamina Bandung"
+                                                },
+                                                "filled_at": {
+                                                    "type": "string",
+                                                    "example": "2026-05-16 10:00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized. API Key atau Bearer Token tidak valid."
+                                        },
+                                        "errors": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Validation Error"
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -108,10 +273,103 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "vehicle_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "driver_name": {
+                                                    "type": "string",
+                                                    "example": "Adwitiya Tikta Pramasti"
+                                                },
+                                                "liters": {
+                                                    "type": "number",
+                                                    "example": 40.5
+                                                },
+                                                "total_cost": {
+                                                    "type": "number",
+                                                    "example": 350000
+                                                },
+                                                "fuel_station": {
+                                                    "type": "string",
+                                                    "example": "SPBU Pertamina Bandung"
+                                                },
+                                                "filled_at": {
+                                                    "type": "string",
+                                                    "example": "2026-05-16 10:00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fuel log not found"
+                                        },
+                                        "errors": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized. API Key atau Bearer Token tidak valid."
+                                        },
+                                        "errors": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [

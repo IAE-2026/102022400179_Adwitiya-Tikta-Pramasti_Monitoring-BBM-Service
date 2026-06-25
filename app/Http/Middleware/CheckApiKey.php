@@ -9,21 +9,16 @@ class CheckApiKey
 {
     public function handle(Request $request, Closure $next)
     {
-        $apiKey = $request->header('IAE_API_KEY_M2M');
-        $bearerToken = $request->bearerToken();
+        $apiKey = $request->header('X-IAE-KEY');
 
-        if ($apiKey === env('IAE_API_KEY_M2M')) {
-            return $next($request);
+        if ($apiKey !== env('IAE_API_KEY')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized. X-IAE-KEY tidak valid.',
+                'errors' => null,
+            ], 401);
         }
 
-        if (!empty($bearerToken)) {
-            return $next($request);
-        }
-
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Unauthorized. API Key atau Bearer Token tidak valid.',
-            'errors' => null
-        ], 401);
+        return $next($request);
     }
 }
