@@ -14,4 +14,4 @@ RUN composer install --no-interaction --optimize-autoloader
 
 EXPOSE 8001
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8001"]
+CMD ["sh", "-c", "sleep 5 && php artisan migrate --force --seed && php artisan serve --host=0.0.0.0 --port=8001"]
