@@ -49,7 +49,7 @@ class FuelLogController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: "status", type: "string", example: "error"),
-                        new OA\Property(property: "message", type: "string", example: "Unauthorized. API Key atau Bearer Token tidak valid."),
+                        new OA\Property(property: "message", type: "string", example: "Unauthorized. X-IAE-KEY tidak valid."),
                         new OA\Property(property: "errors", nullable: true)
                     ]
                 )
@@ -124,7 +124,7 @@ class FuelLogController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: "status", type: "string", example: "error"),
-                        new OA\Property(property: "message", type: "string", example: "Unauthorized. API Key atau Bearer Token tidak valid."),
+                        new OA\Property(property: "message", type: "string", example: "Unauthorized. X-IAE-KEY tidak valid."),
                         new OA\Property(property: "errors", nullable: true)
                     ]
                 )
@@ -146,7 +146,11 @@ class FuelLogController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data retrieved successfully',
-            'data' => $log
+            'data' => $log,
+            'meta' => [
+                'service_name' => 'FuelLog-Service',
+                'api_version' => 'v1'
+            ]
         ]);
     }
 
@@ -205,7 +209,7 @@ class FuelLogController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: "status", type: "string", example: "error"),
-                        new OA\Property(property: "message", type: "string", example: "Unauthorized. API Key atau Bearer Token tidak valid."),
+                        new OA\Property(property: "message", type: "string", example: "Unauthorized. X-IAE-KEY tidak valid."),
                         new OA\Property(property: "errors", nullable: true)
                     ]
                 )
@@ -215,6 +219,7 @@ class FuelLogController extends Controller
                 description: "Validation Error",
                 content: new OA\JsonContent(
                     properties: [
+                        new OA\Property(property: "status", type: "string", example: "error"),
                         new OA\Property(property: "message", type: "string", example: "The given data was invalid."),
                         new OA\Property(property: "errors", type: "object")
                     ]
@@ -253,7 +258,11 @@ class FuelLogController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Fuel log berhasil ditambahkan.',
-            'data' => $log
+            'data' => $log,
+            'meta' => [
+                'service_name' => 'FuelLog-Service',
+                'api_version' => 'v1'
+            ]
         ], 201);
     }
 }
