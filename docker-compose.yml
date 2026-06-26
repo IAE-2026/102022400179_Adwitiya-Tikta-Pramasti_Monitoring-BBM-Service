@@ -7,11 +7,13 @@ services:
       - "8001:8001"
     environment:
       - APP_ENV=local
-      - APP_KEY=${APP_KEY}
+      - APP_KEY=base64:6fRI6fgizxN13P2V0+pcU59rOxGrGscX/YRCG84UFe0=
       - APP_DEBUG=true
       - APP_URL=http://localhost:8001
       - DB_CONNECTION=sqlite
       - IAE_API_KEY=${IAE_API_KEY}
+      - SESSION_DRIVER=file
+      - CACHE_STORE=file 
       - DIDIT_SERVICE_URL=${DIDIT_SERVICE_URL:-}
       - HAFIZH_SERVICE_URL=${HAFIZH_SERVICE_URL:-}
 

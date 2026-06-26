@@ -24,4 +24,4 @@ RUN mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
 
 EXPOSE 8001
 
-CMD ["sh", "-c", "cp .env.example .env && php artisan key:generate --force && php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8001"]
+CMD ["sh", "-c", "cp .env.example .env && php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8001"]
